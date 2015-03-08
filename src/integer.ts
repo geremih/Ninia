@@ -2,6 +2,8 @@ import gLong = require("../lib/gLong");
 import singletons = require('./singletons');
 var NIError = singletons.NotImplemented;
 import Py_Float = require('./float');
+import collections = require('./collections');
+var Py_Tuple = collections.Py_Tuple;
 
 // Py_Int represents the Python Integer class. Integers are marshalled as 32 and
 // 64 bit integers, but they are handled as 64 bit ints. This class follows the
@@ -94,7 +96,7 @@ class Py_Int {
 
     divmod(other: any): any {
         return this.mathOp(other, function(a, b) {
-            return a.div(b).mod(b);
+            return new Py_Tuple([a.div(b), a.mod(b)]);
         });
     }
 
