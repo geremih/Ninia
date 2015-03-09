@@ -22,7 +22,14 @@ export class Py_Object {
 // all strings around forever.
 var string_pool: { [s: string]: Py_Str } = {};
 
-export class Py_Str extends Py_Object {
+export class Py_Sequence extends Py_Object {
+
+    public len(): number {
+        throw Error('length not implemented');
+    }
+}
+
+export class Py_Str extends Py_Sequence {
     private _str: string;
     // No other class should call this constructor.
     constructor(s: string) {
@@ -44,6 +51,11 @@ export class Py_Str extends Py_Object {
     public str(): Py_Str {
         return this;
     }
+
+    public len(): number {
+        return this._str.length;
+    }
+
     public toString(): string {
         return this._str;
     }
